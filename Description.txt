@@ -1,0 +1,24 @@
+Individualized Cerebellar Damage Predicts the Behavioral Disorders in Children with Brainstem Tumors
+
+Steps Overview:
+
+1. Manual Masking of the Brainstem
+The brainstem is manually masked out from the imaging data to isolate the regions of interest.
+
+2. Automated Cerebellum Segmentation
+   The cerebellum is automatically segmented using a U-net based segmentation package developed by Hanshuo. The code can be accessed here:  https://gitlab.com/shuohan/acapulco/-/tree/master?ref_type=heads
+
+3. Manual Adjustment of the Segmentation
+   After automatic segmentation, the results are manually calibrated to ensure accurate delineation of cerebellar regions.
+
+4. Standardization and Volume Extraction using GPR Algorithm
+
+    A Gaussian Process Regression (GPR) model is used to build a standardization model, extracting volumes of all cerebellar regions for each subject.
+   10-Fold Cross-Validation: Performed to validate the model using the script n00_10fold_txt.py.
+   Z Score Calculation: Computed using the notebook GPR_Nmodel.ipynb.
+
+5.Behavior Prediction Model using Ridge Regression
+   A ridge regression model is built to predict behavioral outcomes based on the cerebellar region volumes.
+
+   Model Script: predict_behavior_z.py.
+   Permutation Testing: Conducted using the script predict_behavior_z_permu.py.
